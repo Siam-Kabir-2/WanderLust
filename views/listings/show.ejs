@@ -1,0 +1,105 @@
+<% layout("/layouts/boilerplate") %>
+
+    <div class="card bg-base-100 p-4 max-w-xl sm:w-xl mx-auto">
+        <figure class=" rounded-xl overflow-hidden">
+            <img class="rounded-xl  object-cover w-full h-[300px]" src="<%= listing.image.url %>" alt="image">
+        </figure>
+        <div class="card-body px-1 py-0 my-3">
+            <div class="flex justify-between items-center">
+                <h4 class="card-title text-2xl">
+                    <%= listing.title %>
+                </h4>
+                <div class="text-[10px] badge badge-info badge-sm badge-dash">Created by <%= listing.owner.username %>
+                </div>
+            </div>
+            <p class="font-semibold text-[15px]">
+                <%= listing.description%>
+            </p>
+            <p class="font-semibold text-[12px]">
+                &#2547; <%= listing.price ? listing.price.toLocaleString("en-BD") : "0" %> / night
+            </p>
+
+            <p class="font-semibold text-[12px]">
+                <%= listing.location%>
+            </p>
+            <p class="font-semibold text-[12px]">
+                <%= listing.country%>
+            </p>
+
+
+        </div>
+        <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
+            <div class="grid grid-cols-2 gap-5">
+                <a class="btn btn-ghost bg-black text-white text-[16px]  rounded-xl"
+                    href="/listings/<%= listing._id %>/edit">Edit</a>
+                <form method="post" action="/listings/<%= listing._id %>?_method=DELETE"><button
+                        class="btn w-full btn-ghost bg-red-500 text-white text-[16px] rounded-xl">Delete</button></form>
+            </div>
+            <% } %>
+                <hr class="opacity-20 mt-5">
+                <% if(currUser){ %>
+                    <div class="mx-auto w-full border rounded-lg border-slate-100 p-3  text-center mt-5">
+                        <p class="text-xl font-bold my-4">Leave A Review</p>
+                        <form action="/listings/<%= listing.id %>/reviews" method="post">
+                            <div class="rating rating-lg" id="starRating">
+                                <input type="radio" name="review[rating]" class="rating-hidden" value="0" />
+                                <input type="radio" name="review[rating]" class="mask mask-star-2" value="1" />
+                                <input type="radio" name="review[rating]" class="mask mask-star-2" value="2" />
+                                <input type="radio" name="review[rating]" class="mask mask-star-2" value="3"
+                                    checked="checked" />
+                                <input type="radio" name="review[rating]" class="mask mask-star-2" value="4" />
+                                <input type="radio" name="review[rating]" class="mask mask-star-2" value="5" />
+                            </div>
+                            <fieldset class="fieldset w-full">
+                                <legend class="fieldset-legend text-left">Comment</legend>
+                                <textarea class="textarea h-24 w-full validator" placeholder="So cool!" required
+                                    name="review[comment]"></textarea>
+                                <div class="validator-hint">Write something for review</div>
+                            </fieldset>
+                            <button
+                                class="btn btn-outline btn-neutral mt-2 text-[17px] border-slate-400 rounded-lg font-semibold">Submit</button>
+                        </form>
+                    </div>
+                    <hr class="opacity-20 mt-5">
+
+                    <% } %>
+
+                        <ul class="list bg-base-100 mt-10 rounded-box shadow-md">
+
+                            <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Reviews</li>
+                            <% for(review of listing.reviews) {%>
+                                <li class="list-row my-1 transition-transform duration-200 ease-in hover:scale-101">
+                                    <div><img class="size-10 rounded-box" src="https://i.ibb.co/Cs9jw5Hy/aizen.jpg" />
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">@<%= review.author.username %>
+                                        </div>
+                                        <div class="text-xs"><%=review.createdAt.toLocaleString('en-US', {
+                                                year: 'numeric' ,month:'long',day: 'numeric' , hour:'2-digit' ,
+                                                minute: '2-digit' })%></div>
+                                    </div>
+                                    <p class="list-col-wrap text-sm mb-1">
+                                        <%= review.comment %>
+                                    </p>
+
+                                    <div class="font-semibold text-sm flex flex-col justify-between h-full">
+                                        <div class="flex justify-center items-center gap-1">
+                                            <p>
+                                                <%= review.rating %>
+                                            </p>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+
+                                    </div>
+
+                                    <% if(currUser && currUser._id.equals(review.author._id)){ %>
+                                        <form class="list-col-wrap flex justify-end items-end" method="post"
+                                            action="/listings/<%=listing._id%>/reviews/<%= review._id %>?_method=DELETE">
+                                            <button type="submit"
+                                                class="fa-solid fa-trash text-red-500 hover:scale-105 transition-transform duration-200 ease-in"></button>
+                                        </form>
+                                        <% } %>
+                                </li>
+                                <% } %>
+                        </ul>
+    </div>

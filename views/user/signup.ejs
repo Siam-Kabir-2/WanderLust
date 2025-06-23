@@ -1,0 +1,19 @@
+<% layout("/layouts/boilerplate") %>
+    <div class="flex flex-col justify-center items-center gap-5">
+        <h1 class="font-bold text-xl">Sign Up on WanderLust</h1>
+        <form action="/signup" method="post">
+            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-[300px] border p-4">
+                <!-- <legend class="fieldset-legend">Login</legend> -->
+
+                <label class="label">Username</label>
+                <input type="name" name="username" class="input validator" required placeholder="Username" />
+                <label class="label">Email</label>
+                <input type="email" name="email" class="input validator" required placeholder="Email" />
+                <label class="label">Password</label>
+                <input type="password" name="password" class="input validator" required placeholder="Password" />
+
+
+                <button class="btn btn-neutral mt-4">SignUp</button>
+            </fieldset>
+        </form>
+    </div>

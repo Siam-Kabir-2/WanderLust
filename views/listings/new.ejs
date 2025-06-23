@@ -1,0 +1,37 @@
+<% layout("/layouts/boilerplate") %>
+
+    <body>
+        <form method="post" action="/listings" enctype="multipart/form-data">
+            <fieldset
+                class="fieldset bg-base-200 border-base-300 rounded-box mx-auto sm:mx-auto md:mx-auto w-xs sm:w-xl md:w-2xl  border p-4">
+                <legend class="fieldset-legend text-lg">Create New Listing</legend>
+                <label class="label">Title</label>
+                <input class="input validator" required name="listing[title]" placeholder="Add a catchy title">
+                <br>
+                <label class="label">Description</label>
+                <textarea class="textarea w-full validator" name="listing[description]" required
+                    placeholder="Enter description"></textarea>
+                <p class="validator-hint ">Please enter a short description</p>
+                <label class="label">Upload image</label>
+                <input class="file-input w-full" name="listing[image]" type="file" required>
+                <br>
+                <div class="grid sm:grid-cols-2 gap-2">
+                    <div>
+                        <label class="label">Price</label>
+                        <input class="input validator" required name="listing[price]" placeholder="9,999" type="">
+                        <p class="validator-hint ">Price should be valid</p>
+                    </div>
+                    <div>
+                        <label class="label">Country</label>
+                        <input class="input validator" required name="listing[country]" placeholder="Soul Society"
+                            type="text">
+                        <p class="validator-hint ">Country name should be valid</p>
+                    </div>
+                </div>
+                <label class="label">Location</label>
+                <input class="input validator" required name="listing[location]" placeholder="Rukoon" type="text">
+                <p class="validator-hint ">Location should be valid</p>
+                <button class="mt-2 btn btn-ghost btn-active bg-red-500 text-white ">Add</button>
+            </fieldset>
+        </form>
+    </body>

@@ -1,0 +1,48 @@
+<div class="navbar bg-base-100 shadow-sm fixed top-0 h-[80px] z-50">
+  <div class="navbar-start">
+    <a href="/listings" tabindex="0" role="button"
+      class="btn btn-ghost lg:hidden text-red-500 text-[2rem] fa-compass fa-solid p-1">
+    </a>
+    <a href="/listings" class="btn btn-ghost text-2xl font-bold">WanderLust</a>
+  </div>
+  <div class="navbar-center hidden sm:flex font-semibold ">
+    <!-- <ul class="menu menu-horizontal px-1">
+      <li><a href="/listings">Explore</a></li>
+      <li><a href="/listings/new">Add New</a></li>
+    </ul> -->
+    <div class="border border-slate-200 flex p-1 rounded-full w-full shadow">
+      <input type="text" placeholder="Type here"
+        class="input border-0 rounded-full focus:outline-0 focus:shadow-none shadow-none" />
+      <button class="bg-red-500 p-1 rounded-full h-10 w-12"><i class="fa-solid fa-search text-white"></i></button>
+    </div>
+  </div>
+  <div class="navbar-end ">
+    <div class=" font-semibold  hover:bg-slate-100 rounded-full px-3 py-2 mr-3 hidden sm:flex"><a
+        href="/listings/new">Become a host</a>
+    </div>
+    <div class="dropdown dropdown-bottom dropdown-end border border-slate-200 flex justify-center items-center shadow rounded-full ">
+      <div tabindex="0" role="button" class="btn  bg-white border-0 rounded-full shadow-none">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <ul tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-30 p-2 shadow font-semibold">
+
+        <li class="lg:hidden"><a href="/listings/new">Become a host</a></li>
+        <li class="lg:hidden"><a href="/listings">Explore</a></li>
+
+        <hr class="lg:hidden" />
+
+        <% if (!currUser) { %>
+          <li><a href="/signup">Sign Up</a></li>
+          <li><a href="/login">Log in</a></li>
+          <% } else { %>
+            <li><a href="/logout">Log Out</a></li>
+            <% } %>
+      </ul>
+
+      <div class="btn  h-8 w-8 mr-1 bg-black rounded-full"><i class="fa-solid fa-user text-white "></i></div>
+    </div>
+
+
+  </div>
+</div>

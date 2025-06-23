@@ -1,0 +1,46 @@
+<% layout("/layouts/boilerplate") %>
+
+
+    <form method="post" action="/listings/<%= listing._id %>?_method=PUT" enctype="multipart/form-data">
+        <fieldset
+            class="fieldset bg-base-200 border-base-300 rounded-box mx-auto sm:mx-auto md:mx-auto w-xs sm:w-xl md:w-2xl  border p-4 ">
+            <legend class="fieldset-legend text-lg">Edit This Listing</legend>
+            <label class="label">Title</label>
+            <input class="input validator" required name="listing[title]" value="<%= listing.title %>">
+
+            <label class="label">Description</label>
+            <textarea class="textarea w-full validator"
+                name="listing[description]"><%= listing.description %></textarea>
+            <p class="validator-hint ">Please enter a short description</p>
+
+            <label class="label">Current image</label>
+                <img class="mb-4 rounded-sm " src="<%=originalImageUrl%>" alt="">
+
+           <label class="label">Upload new image</label>
+                <input class="file-input w-full" name="listing[image]" type="file">
+
+            <div class="grid sm:grid-cols-2 gap-2">
+                <div>
+                    <label class="label">Price</label>
+                    <input class="input validator" required name="listing[price]" type="number"
+                        value="<%= listing.price %>">
+                    <p class="validator-hint ">Price should be valid</p>
+
+                </div>
+                <div>
+                    <label class="label">Country</label>
+                    <input class="input validator" required name="listing[country]" type="text"
+                        value="<%= listing.country %>">
+                    <p class="validator-hint ">Country Name should be valid</p>
+
+                </div>
+            </div>
+            <label class="label">Location</label>
+            <input class="input validator" required name="listing[location]" type="text"
+                value="<%= listing.location %>">
+            <p class="validator-hint ">Price should be valid</p>
+
+
+            <button class="btn btn-ghost btn-active bg-red-500 text-white ">Edit</button>
+        </fieldset>
+    </form>

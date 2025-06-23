@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark
+}
+
+.input{
+    @apply w-full;
+}
+.label{
+    @apply text-black font-semibold;
+}
