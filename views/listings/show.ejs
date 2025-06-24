@@ -28,7 +28,7 @@
 
 
         </div>
-        <% if(locals.currUser && locals.currUser._id.equals(listing.owner._id)){ %>
+        <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
             <div class="grid grid-cols-2 gap-5">
                 <a class="btn btn-ghost bg-black text-white text-[16px]  rounded-xl"
                     href="/listings/<%= listing._id %>/edit">Edit</a>
@@ -37,7 +37,7 @@
             </div>
             <% } %>
                 <hr class="opacity-20 mt-5">
-                <% if(locals.currUser){ %>
+                <% if(currUser){ %>
                     <div class="mx-auto w-full border rounded-lg border-slate-100 p-3  text-center mt-5">
                         <p class="text-xl font-bold my-4">Leave A Review</p>
                         <form action="/listings/<%= listing.id %>/reviews" method="post">
@@ -92,7 +92,7 @@
 
                                     </div>
 
-                                    <% if(locals.currUser && locals.currUser._id.equals(review.author._id)){ %>
+                                    <% if(currUser && currUser._id.equals(review.author._id)){ %>
                                         <form class="list-col-wrap flex justify-end items-end" method="post"
                                             action="/listings/<%=listing._id%>/reviews/<%= review._id %>?_method=DELETE">
                                             <button type="submit"

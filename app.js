@@ -1,5 +1,5 @@
-if(process.env.NODE_ENV!="production"){
-require('dotenv').config();
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
 }
 // console.log(process.env.SECRET);
 
@@ -11,7 +11,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
@@ -20,7 +20,7 @@ const User = require("./models/user.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
-const { error } = require('console');
+const { error } = require("console");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 app.engine("ejs", ejsMate);
 
-const dbUrl=process.env.ATLASDB_URL;
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then(() => {
@@ -42,18 +42,17 @@ main()
 async function main() {
   await mongoose.connect(dbUrl);
 }
-const store=MongoStore.create({
-  mongoUrl:dbUrl,
-  crypto:{
-    secret:process.env.SECRET,
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: process.env.SECRET,
   },
-  touchAfter:24*3600,
-  
+  touchAfter: 24 * 3600,
 });
 
-store.on("error",()=>{
-  console.log("Errorin Mongo session store ",err);
-})
+store.on("error", (err) => {
+  console.log("Error in Mongo session store ", err);
+});
 
 const sessionOptions = {
   store,
@@ -64,12 +63,17 @@ const sessionOptions = {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
+    // secure: process.env.NODE_ENV === "production",
+    // sameSite: process.env.NODE_ENV === 'production' ? 'lax' : 'none',
   },
 };
+// if (process.env.NODE_ENV === 'production') {
+//     app.set('trust proxy', 1); // Trust first proxy
+// }
 
-// app.get("/", (req, res) => {
-//   res.send("This is ROOT!");
-// });
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -84,8 +88,8 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  res.locals.currUser=req.user;
-  res.locals.redirectUrl=req.session.redirectUrl;
+  res.locals.currUser = req.user;
+  res.locals.redirectUrl = req.session.redirectUrl;
   next();
 });
 
