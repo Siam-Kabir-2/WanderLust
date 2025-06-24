@@ -1,4 +1,7 @@
-
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config({path:"../.env"});
+  // console.log(process.env.ATLASDB_URL)
+}
 const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listing.js");
@@ -10,7 +13,7 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect("mongodb+srv://siam:MdSiamKabir1@cluster0.2iekedl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+  await mongoose.connect(process.env.ATLASDB_URL);
 }
 
 const initDB = async () => {
